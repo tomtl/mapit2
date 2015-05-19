@@ -1,0 +1,5 @@
+== Map It
+
+This is a basic application that allows users to create maps.
+
+Created by: Tom Lee, May 2015.
