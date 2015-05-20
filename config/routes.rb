@@ -1,3 +1,7 @@
-Myflix::Application.routes.draw do
-  get 'ui(/:action)', controller: 'ui'
+Mapit::Application.routes.draw do
+  root to: 'pages#front'
+  
+  resources :users, only: [:create]
+  get 'register', to: 'users#new'
+  get 'sign_in', to: 'sessions#new'
 end

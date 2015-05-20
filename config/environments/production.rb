@@ -1,4 +1,4 @@
-Myflix::Application.configure do
+Mapit::Application.configure do
 
   config.cache_classes = true
   config.eager_load = true
