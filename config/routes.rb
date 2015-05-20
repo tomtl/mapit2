@@ -5,4 +5,6 @@ Mapit::Application.routes.draw do
   get 'register', to: 'users#new'
   get 'sign_in', to: 'sessions#new'
   get 'home', to: 'locations#index'
+  
+  resources :locations
 end

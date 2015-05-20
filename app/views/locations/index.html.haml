@@ -1,0 +1,21 @@
+%section.my_queue.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      %article
+        %header
+          %h2 My Locations
+          %table.table
+            %thead
+              %tr
+                %th(width="50%") Address
+                %th(width="25%") Latitude
+                %th(width="25%") Longitude
+            %tbody
+              - @locations.each do |location|
+                %tr
+                  %td= location.address
+                  %td= location.latitude
+                  %td= location.longitude
+          = bootstrap_form_for(@location, layout: :horizontal) do |f|
+            = f.text_field :address, label: "Add new address:", control_col: "col-sm-3"
+            = f.submit "Add address"
