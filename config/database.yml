@@ -3,13 +3,13 @@ development:
   encoding: unicode
   database: mapit_development
   pool: 5
-  username: ubuntu
-  password: 
+  username: tomlee
+  password:
 
 test:
   adapter: postgresql
   encoding: unicode
   database: mapit_test
   pool: 5
-  username: ubuntu
-  password: 
+  username: tomlee
+  password:
