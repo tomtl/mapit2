@@ -7,4 +7,5 @@ Mapit::Application.routes.draw do
   get 'home', to: 'locations#index'
   
   resources :locations
+  resources :sessions, only: [:create, :destroy]
 end
