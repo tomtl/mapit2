@@ -33,9 +33,22 @@ describe LocationsController do
     end
     
     context "with invalid inputs"do
-      it "displays error message"
-      it "does not create the location"
-      it "renders :index"
+      before do
+        set_current_user
+        post :create, location: { address: nil }
+      end
+      
+      it "displays error message" do
+        expect(flash[:error]).to be_present 
+      end
+      
+      it "does not create the location" do
+        expect(Location.count).to eq(0)
+      end
+      
+      it "renders :index" do
+        expect(response).to render_template :index
+      end
     end
   end
 end

@@ -10,6 +10,9 @@ class LocationsController < ApplicationController
     if @location.save
       flash[:notice] = "Your location has been created!"
       redirect_to home_path
+    else
+      flash[:error] = "Please fix the following errors."
+      render :index
     end
   end
 

@@ -1,11 +1,15 @@
+$blue1: #1d3a58
+$blue2: #0071ad
+$blue3: #121736
+
 body
   margin: 20px
-  background-color: #E1E1E1
+  line-height: 1.6
   a
-    color: #AE1D00
+    color: $blue2
   section.content
     padding-bottom: 50px
-    border-bottom: 3px solid #B9090B
+    border-bottom: 3px solid #1D3A58
     margin-bottom: 20px
 
 section.ui-index
@@ -15,3 +19,66 @@ section.ui-index
 fieldset.actions
   input[type="submit"]
     margin-right: 10px
+    
+section.site_title
+  background-image: url('/tmp/Perth.jpg')
+  background-size: cover
+  border-radius: 10px
+  padding: 100px 215px
+  h1
+    font-size: 32px
+    font-weight: bold
+    color: black
+    margin-bottom: 30px
+  p.sign_up
+    font-size: 24px
+    margin-bottom: 30px
+    
+section#top-header
+  background: $blue1
+  margin: 0
+  margin-bottom: 20px
+  padding: 12px 0
+  border-radius: 5px
+  a
+    color: white
+  h1
+    font-size: 20px
+  > ul
+    padding-top: 12px
+    li
+      float: left
+      margin-right: 30px
+      text-transform: uppercase
+      &:first-of-type
+        margin-left: -15px
+  form
+    padding-top: 6px
+    margin: 0
+    input[type="text"]
+      width: 320px
+      float: left
+    input[type="submit"]
+      margin-left: 10px
+      float: left
+  #user_links
+    padding-top: 8px
+    > ul
+      > li
+        float: left
+        width: 200px
+        a
+          margin: 0 10px
+          b
+            border-top-color: white
+        > ul
+          > li
+            &.open &:hover
+              background: red
+            a
+              color: black
+              margin: 0
+
+.section.row.title.h3
+  display: inline-block
+  text-align: center
