@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  before_action :require_user
+
   def new
     @location = Location.new
   end
@@ -6,7 +8,7 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     @location.user = current_user
-    
+
     if @location.save
       flash[:notice] = "Your location has been created!"
       redirect_to home_path
@@ -19,6 +21,10 @@ class LocationsController < ApplicationController
   def index
     @location = Location.new
     @locations = Location.all
+  end
+
+  def show
+    @location = Location.find(params[:id])
   end
 
   private

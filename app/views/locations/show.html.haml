@@ -1,0 +1,7 @@
+%section.my_queue.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      %article
+        %header
+          %h2= @location.address
+          =image_tag "http://maps.google.com/maps/api/staticmap?size=600x400&sensor=false&zoom=16&markers=#{@location.address}"
