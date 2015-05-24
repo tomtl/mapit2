@@ -43,7 +43,12 @@ describe LocationsController do
         expect(Location.first.user).to eq(user)
       end
 
-      it "creates latitude and longitude for location"
+      it "creates latitude and longitude for location" do
+        user = Fabricate(:user)
+        set_current_user(user)
+        post :create, location: Fabricate.attributes_for(:location)
+        expect(Location.first.latitude).to be_present
+      end
     end
 
     context "with invalid inputs" do

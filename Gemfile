@@ -11,6 +11,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
 gem 'bcrypt-ruby'
+gem 'geocoder'
 
 group :development do
   gem 'thin'
@@ -36,4 +37,3 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
