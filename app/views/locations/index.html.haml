@@ -13,7 +13,7 @@
             %tbody
               - @locations.each do |location|
                 %tr
-                  %td= link_to location.address, location_path(location)
+                  %td= link_to(location.address, location_path(location))
                   %td= location.latitude
                   %td= location.longitude
           = bootstrap_form_for(@location, layout: :horizontal) do |f|

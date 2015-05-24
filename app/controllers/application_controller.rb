@@ -2,7 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def require_user
-    redirect_to sign_in_path unless current_user
+    if !current_user
+      flash[:error] = "Please log in."
+      redirect_to sign_in_path unless current_user
+    end
   end
 
   def current_user
