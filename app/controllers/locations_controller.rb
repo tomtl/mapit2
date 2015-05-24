@@ -21,6 +21,15 @@ class LocationsController < ApplicationController
   def index
     @location = Location.new
     @locations = current_user.locations
+
+    markers_array = []
+
+    @locations.each do |location|
+      marker = "&markers=label:#{location.id}%7C#{location.latitude},#{location.longitude}"
+      markers_array << marker
+    end
+
+    @markers = markers_array.join
   end
 
   def show
@@ -43,6 +52,17 @@ class LocationsController < ApplicationController
       flash[:error] = "Please fix the following errors."
       render :edit
     else
+      flash[:error] = "You do not have permission to do that."
+      redirect_to home_path
+    end
+  end
+
+  def destroy
+    @location = Location.find(params[:id])
+    if (@location.user == current_user) && @location.destroy
+      flash[:notice] = "Address has been deleted successfully"
+      redirect_to home_path
+    elsif @location.user != current_user
       flash[:error] = "You do not have permission to do that."
       redirect_to home_path
     end

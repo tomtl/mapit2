@@ -46,7 +46,8 @@ describe LocationsController do
       it "creates latitude and longitude for location" do
         user = Fabricate(:user)
         set_current_user(user)
-        post :create, location: Fabricate.attributes_for(:location)
+        valid_address = "742 E Evergreen St, Springfield, MO 65803"
+        post :create, location: { address: valid_address }
         expect(Location.first.latitude).to be_present
       end
     end
@@ -204,6 +205,70 @@ describe LocationsController do
 
       it "shows an error message" do
         expect(flash[:error]).to be_present
+      end
+    end
+  end
+
+  describe "DESTROY location" do
+    context "for authenticated users" do
+      before do
+        user = Fabricate(:user)
+        set_current_user(user)
+        location = Fabricate(:location, user: user)
+        delete :destroy, id: location.id
+      end
+
+      it "redirects to home page" do
+        expect(response).to redirect_to home_path
+      end
+
+      it "deletes the location" do
+        expect(Location.count).to eq(0)
+      end
+
+      it "displays a success message" do
+        expect(flash[:notice]).to be_present
+      end
+    end
+
+    context "for unauthenticated users" do
+      before do
+        user = Fabricate(:user)
+        location = Fabricate(:location, user: user)
+        delete :destroy, id: location.id
+      end
+      it "redirects to sign in page" do
+        expect(response).to redirect_to sign_in_path
+      end
+
+      it "shows an error message" do
+        expect(flash[:error]).to be_present
+      end
+
+      it "does not delete the location" do
+        expect(Location.count).to eq(1)
+      end
+    end
+
+    context "for users that did not create the location" do
+      before do
+        signed_in_user = Fabricate(:user)
+        set_current_user(signed_in_user)
+        other_user = Fabricate(:user)
+        location = Fabricate(:location, user: other_user)
+        delete :destroy, id: location.id
+      end
+
+      it "redirects to the home page" do
+        expect(response).to redirect_to home_path
+      end
+
+      it "shows an error message" do
+        expect(flash[:error]).to be_present
+      end
+
+      it "does not delete the location" do
+        expect(Location.count).to eq(1)
       end
     end
   end
