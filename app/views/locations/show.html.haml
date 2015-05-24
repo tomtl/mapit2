@@ -6,4 +6,4 @@
           %h2= @location.address
           %p= image_tag "http://maps.google.com/maps/api/staticmap?size=600x400&sensor=false&zoom=16&markers=#{@location.address}"
           %p= link_to 'Edit address', edit_location_path(@location), class: 'btn btn-primary'
-          = link_to 'Delete address', location_path(@location), method: 'delete', class: 'btn btn-warning'
+          = link_to 'Delete address', location_path(@location), method: 'delete', class: 'btn btn-danger'
