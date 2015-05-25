@@ -20,4 +20,4 @@
             = f.text_field :address, label: "Add new address:", control_col: "col-sm-3"
             = f.submit "Add address"
           %br
-          %p= image_tag "http://maps.google.com/maps/api/staticmap?size=600x400&sensor=false#{@markers}"
+          %p= image_tag index_map_link
