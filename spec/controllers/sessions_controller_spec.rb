@@ -51,21 +51,20 @@ describe SessionsController do
   end
 
   describe "GET destroy" do
-    it "removes the user from the session" do
+    before do
       set_current_user
       get :destroy
+    end
+
+    it "removes the user from the session" do
       expect(session[:user_id]).to be_nil
     end
 
     it "displays a message" do
-      set_current_user
-      get :destroy
       expect(flash[:notice]).to be_present
     end
 
     it "redirects to the front page" do
-      set_current_user
-      get :destroy
       expect(response).to redirect_to root_path
     end
   end

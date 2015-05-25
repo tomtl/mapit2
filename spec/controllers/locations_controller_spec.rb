@@ -2,20 +2,17 @@ require 'spec_helper'
 
 describe LocationsController do
   describe "GET index" do
+    let(:user) { Fabricate(:user) }
+    let(:location1) { Fabricate(:location, user: user) }
+    let(:location2) { Fabricate(:location, user: user) }
+    before { set_current_user(user) }
+
     it "sets @locations" do
-      user = Fabricate(:user)
-      set_current_user(user)
-      location1 = Fabricate(:location, user: user)
-      location2 = Fabricate(:location, user: user)
       get :index
       expect(assigns(:locations)).to match_array([location1, location2])
     end
 
     it "only shows locations that belong to the signed in user" do
-      user1 = Fabricate(:user)
-      set_current_user(user1)
-      location1 = Fabricate(:location, user: user1)
-      location2 = Fabricate(:location, user: user1)
       location3 = Fabricate(:location, user: Fabricate(:user))
       get :index
       expect(assigns(:locations)).to match_array([location1, location2])
@@ -24,31 +21,32 @@ describe LocationsController do
 
   describe "POST create" do
     context "with valid inputs" do
+      let(:user) { Fabricate(:user) }
+      let(:location) { Fabricate.attributes_for(:location, address: "742 E Evergreen St, Springfield, MO 65803") }
+
+      before do
+        set_current_user(user)
+        post :create, location: location
+      end
+
       it "redirects to the home_path" do
-        set_current_user
-        post :create, location: Fabricate.attributes_for(:location)
         expect(response).to redirect_to home_path
       end
 
       it "creates the location" do
-        set_current_user
-        post :create, location: Fabricate.attributes_for(:location)
         expect(Location.count).to eq(1)
       end
 
       it "creates the location associated with the user" do
-        user = Fabricate(:user)
-        set_current_user(user)
-        post :create, location: Fabricate.attributes_for(:location)
         expect(Location.first.user).to eq(user)
       end
 
-      it "creates latitude and longitude for location" do
-        user = Fabricate(:user)
-        set_current_user(user)
-        valid_address = "742 E Evergreen St, Springfield, MO 65803"
-        post :create, location: { address: valid_address }
+      it "creates latitude for location" do
         expect(Location.first.latitude).to be_present
+      end
+
+      it "creates longitude for location" do
+        expect(Location.first.longitude).to be_present
       end
     end
 
