@@ -22,7 +22,7 @@ describe LocationsController do
   describe "POST create" do
     context "with valid inputs" do
       let(:user) { Fabricate(:user) }
-      let(:location) { Fabricate.attributes_for(:location, address: "742 E Evergreen St, Springfield, MO 65803") }
+      let(:location) { Fabricate.attributes_for(:location, address: valid_address) }
 
       before do
         set_current_user(user)
@@ -70,14 +70,12 @@ describe LocationsController do
     end
 
     context "for non-authenticated users" do
-      before { post :create, location: Fabricate.attributes_for(:location)
- }
-
-      it "redirects to the sign in page" do
-        expect(response).to redirect_to sign_in_path
+      it_behaves_like "requires sign in" do
+        let(:action) { post :create, location: Fabricate.attributes_for(:location) }
       end
 
       it "does not create a location" do
+        post :create, location: Fabricate.attributes_for(:location)
         expect(Location.count).to eq(0)
       end
     end
@@ -89,10 +87,9 @@ describe LocationsController do
       get :show, id: Fabricate(:location).id
       expect(assigns(:location)).to be_instance_of(Location)
     end
-
-    it "redirects to the sign in page for unauthenticated users" do
-      get :show, id: Fabricate(:location).id
-      expect(response).to redirect_to sign_in_path
+    
+    it_behaves_like "requires sign in" do
+      let(:action) { get :show, id: Fabricate(:location).id }
     end
   end
 
@@ -103,9 +100,8 @@ describe LocationsController do
       expect(assigns(:location)).to be_instance_of(Location)
     end
 
-    it "redirects to sign in page for unauthenticated users" do
-      get :edit, id: Fabricate(:location).id
-      expect(response).to redirect_to sign_in_path
+    it_behaves_like "requires sign in" do
+      let(:action) { get :edit, id: Fabricate(:location).id }
     end
 
     it "redirects to home page if location does not belong to user" do

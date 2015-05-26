@@ -8,3 +8,7 @@ def sign_in_user(user = nil)
   fill_in "Password", with: user.password
   click_button "Sign in"
 end
+
+def valid_address
+  "742 E Evergreen St, Springfield, MO 65803"
+end
