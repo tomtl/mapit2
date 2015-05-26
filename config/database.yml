@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: mapit_development
   pool: 5
-  username: tomlee
+  username: ubuntu
   password:
 
 test:
@@ -11,5 +11,5 @@ test:
   encoding: unicode
   database: mapit_test
   pool: 5
-  username: tomlee
+  username: ubuntu
   password:
